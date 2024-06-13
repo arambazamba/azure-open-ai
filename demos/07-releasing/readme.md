@@ -6,8 +6,6 @@
 
 [Understanding AI plugins in Semantic Kernel](https://learn.microsoft.com/en-us/semantic-kernel/agents/plugins/?tabs=Csharp)
 
-[Semantic Kernel with React Frontend on ACA](https://techcommunity.microsoft.com/t5/apps-on-azure/semantic-kernel-container-apps-with-react-and-python/m-p/3958787)
-
 ## Demos
 
 - Semantic Kernel Function Calling Entity Framework
