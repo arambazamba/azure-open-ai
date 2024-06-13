@@ -2,22 +2,22 @@
 @model IndexModel
 
 <div class="text-center">
-    <h4 class="display-6">Be informed about students:</h4>
+    <h4 class="display-6">Chat about students</h4>
     <form method="post">
-        <input type="text" name="prompt" size="80" required />
-        <input type="submit" value="Submit" />
+        <input id="inputPrompt" class="inputPrompt" type="text" name="prompt" size="80" required />
+        <input type="submit" value="Send" class="btn btn-primary"/>
     </form>
     <div style="text-align: left" class="instructions">
-        <h5>Example prompts:</h5>
-        <p>Which school does Mat Tan go to?</p>
-        <p>Which school has the most students?</p>
-        <p>Which school has the least students?</p>
-        <p>Get the count of students in each school.</p>
-        <p>How many students are there in the school of Mining?</p>
-        <p>What is the ID of Jan Fry and which school does she go to?</p>
-        <p>Which students belong to the school of Business? Respond only in JSON format.</p>
-        <p>Which students in the school of Nursing have their first or last name start with the letter 'J'?</p>
-    </div>
+        <h5>Click on the example prompts</h5>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Which school does Mat Tan go to?')" style="margin-bottom: 1rem;">Which school does Mat Tan go to?</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Which school has the most students?')" style="margin-bottom: 1rem;">Which school has the most students?</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Which school has the least students?')" style="margin-bottom: 1rem;">Which school has the least students?</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Get the count of students in each school.')" style="margin-bottom: 1rem;">Get the count of students in each school.</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('How many students are there in the school of Mining?')" style="margin-bottom: 1rem;">How many students are there in the school of Mining?</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('What is the ID of Jan Fry and which school does she go to?')" style="margin-bottom: 1rem;">What is the ID of Jan Fry and which school does she go to?</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Which students belong to the school of Business? Respond only in JSON format.')" style="margin-bottom: 1rem;">Which students belong to the school of Business? Respond only in JSON format.</button>
+        <button type="button" class="btn btn-primary" onclick="addPrompt('Which students in the school of Nursing have their first or last name start with the letter \'J\'?')" style="margin-bottom: 1rem;">Which students in the school of Nursing have their first or last name start with the letter 'J'?</button>
+        </div>
     @if (Model.Reply != null)
     {
         <p class="alert alert-success" id="reply">@Model.Reply</p>

@@ -35,3 +35,11 @@ h5{
 h4{
   margin-bottom: 1rem;
 }
+
+.inputPrompt{
+  height: 4rem;
+}
+
+input[type="submit"] {
+  height: 4rem;
+}
