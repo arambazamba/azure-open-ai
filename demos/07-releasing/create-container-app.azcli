@@ -6,7 +6,7 @@ acr=azureopenai$env
 acaenv=azure-open-ai-$env
 app=sk-students-ai
 aiendpoint=https://azure-open-ai-service151751987042.openai.azure.com
-aikey=<azure-ai-key>
+aikey='830b73bfbd2e41bb864443dcae10cf5a'
 
 # Create a resource group
 az group create -n $grp -l $loc
@@ -23,7 +23,7 @@ url=$(az acr list -g $grp --query "[].loginServer" -o tsv)
 
 # Build and push the Docker image to the Azure Container Registry
 cd $app
-az acr build --image $img -g $grp --registry $acr --file dockerfile .
+az acr build --image $app -g $grp --registry $acr --file dockerfile .
 cd ..
 
 # Create an Azure Container App environment
