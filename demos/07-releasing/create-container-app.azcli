@@ -5,8 +5,8 @@ loc=eastus
 acr=azureopenai$env
 acaenv=azure-open-ai-$env
 app=sk-students-ai
-aiendpoint=https://azure-open-ai-service151751987042.openai.azure.com
-aikey='830b73bfbd2e41bb864443dcae10cf5a'
+aiendpoint=https://azure-open-ai-service151751987042.cognitiveservices.azure.com/
+aikey=830b73bfbd2e41bb864443dcae10cf5a
 
 # Create a resource group
 az group create -n $grp -l $loc
@@ -17,6 +17,7 @@ az acr login -n $acr
 
 # Get the password for the Azure Container Registry
 acrPWD=$(az acr credential show -n $acr -g $grp --query passwords[0].value -o tsv)
+loginSrv=$(az acr show -n $acr -g $grp --query loginServer -o tsv)
 
 # Get the fully qualified name of the Azure Container Registry
 url=$(az acr list -g $grp --query "[].loginServer" -o tsv)
