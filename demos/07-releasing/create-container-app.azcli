@@ -1,3 +1,4 @@
+# Set the environment variables
 env=dev
 grp=azure-open-ai
 loc=eastus
@@ -5,20 +6,28 @@ acr=azureopenai$env
 acaenv=azure-open-ai-$env
 app=sk-students-ai
 
+# Create a resource group
 az group create -n $grp -l $loc
 
+# Create an Azure Container Registry
 az acr create -g $grp -n $acr --sku Basic --admin-enabled true
 az acr login -n $acr
 
-acrPWD=$(az acr credential show -n $acr -g $grp  --query passwords[0].value -o tsv)
-srcFQN=$(az acr list -g $grp --query "[].loginServer" -o tsv) 
+# Get the password for the Azure Container Registry
+acrPWD=$(az acr credential show -n $acr -g $grp --query passwords[0].value -o tsv)
 
+# Get the fully qualified name of the Azure Container Registry
+srcFQN=$(az acr list -g $grp --query "[].loginServer" -o tsv)
+
+# Build and push the Docker image to the Azure Container Registry
 cd $app
 az acr build --image $img -g $grp --registry $acr --file dockerfile .
 cd ..
 
+# Create an Azure Container App environment
 az containerapp env create -n $acaenv -g $grp -l $loc
 
+# Create an Azure Container App
 az containerapp create -n $app \
     -g $grp \
     --image $srcFQN/$app \
@@ -26,4 +35,4 @@ az containerapp create -n $app \
     --target-port 8080 --ingress external \
     --registry-server $loginSrv \
     --registry-username $acr \
-    --registry-password $acrPWD 
+    --registry-password $acrPWD
