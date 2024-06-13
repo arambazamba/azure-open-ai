@@ -1,0 +1,21 @@
+grp=ai-training
+loc=eastus
+cs=ai-training-content-safety-$RANDOM
+
+az group create --name $grp --location $loc
+
+az cognitiveservices account create \
+    --name $cs \
+    --resource-group $grp \
+    --kind ContentModerator \
+    --sku F0 \
+    --location $loc 
+
+## Get the endpoint and key
+key=$(az cognitiveservices account keys list --name $cs --resource-group $grp --query key1 -o tsv)
+
+## Get the endpoint
+endpoint=$(az cognitiveservices account show --name $cs --resource-group $grp --query properties.endpoint -o tsv)
+
+echo "Key: $key"
+echo "Endpoint: $endpoint"

@@ -1,0 +1,22 @@
+env=dev
+grp=ai-training
+loc=eastus
+name=ai-training
+storage=aitrainingstorage$env
+kv=ai-training-kv-$env
+
+az group create --name $grp --location $loc
+
+# Create a new Azure Key Vault
+az keyvault create -n $kv -g $grp -l $loc --enable-rbac-authorization
+
+# Create a new Azure Storage Account
+az storage account create -n $storage -g $grp -l $loc --sku Standard_LRS
+
+# Create a new Azure AI Service
+az cognitiveservices account create \
+    --name $name-$env \
+    --resource-group $grp \
+    --kind  OpenAI \
+    --sku S0 \
+    --location $loc 

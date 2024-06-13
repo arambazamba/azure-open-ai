@@ -1,0 +1,29 @@
+env=dev
+grp=azure-open-ai
+loc=eastus
+acr=azureopenai$env
+acaenv=azure-open-ai-$env
+app=sk-students-ai
+
+az group create -n $grp -l $loc
+
+az acr create -g $grp -n $acr --sku Basic --admin-enabled true
+az acr login -n $acr
+
+acrPWD=$(az acr credential show -n $acr -g $grp  --query passwords[0].value -o tsv)
+srcFQN=$(az acr list -g $grp --query "[].loginServer" -o tsv) 
+
+cd $app
+az acr build --image $img -g $grp --registry $acr --file dockerfile .
+cd ..
+
+az containerapp env create -n $acaenv -g $grp -l $loc
+
+az containerapp create -n $app \
+    -g $grp \
+    --image $srcFQN/$app \
+    --environment $acaenv \
+    --target-port 8080 --ingress external \
+    --registry-server $loginSrv \
+    --registry-username $acr \
+    --registry-password $acrPWD 
